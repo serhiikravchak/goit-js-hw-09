@@ -36,6 +36,7 @@ function onClose(selectedDates) {
                 console.log(selectedDates[0].getTime() - Date.now())
                 if (selectedDates[0].getTime() - Date.now() <= 1000) {
                     clearInterval(timerId)
+                     Notify.success('Відлік завершено');
                 }
                 const { days, hours, mins, secs } = timer;
                 const dayLeft = addLeadingZero(days);
