@@ -26,13 +26,17 @@ refs.startBtn.disabled = true
 
 function onClose(selectedDates) {
     const currentDate = Date.now()
-    if (selectedDates[0].getTime() >= currentDate) {
+    if (selectedDates[0].getTime() >= currentDate ) {
         refs.startBtn.disabled = false;
         refs.startBtn.addEventListener('click', () => {
             refs.startBtn.disabled = true;
-            setInterval(() => {
+            const timerId = setInterval(() => {
                  
                 const timer = convertMs(selectedDates[0].getTime() - Date.now());
+                console.log(selectedDates[0].getTime() - Date.now())
+                if (selectedDates[0].getTime() - Date.now() <= 1000) {
+                    clearInterval(timerId)
+                }
                 const { days, hours, mins, secs } = timer;
                 const dayLeft = addLeadingZero(days);
                 const hoursLeft = addLeadingZero(hours);
@@ -45,10 +49,10 @@ function onClose(selectedDates) {
             }, 1000);
             Notify.success('Починаємо відлік');
         })
-    } else {
-    Notify.failure('Виберіть дату в майбутньому');
-  }
-    
+    }    else {
+        Notify.failure('Виберіть дату в майбутньому');
+  } 
+      
 }
 
 function addLeadingZero(value) {
